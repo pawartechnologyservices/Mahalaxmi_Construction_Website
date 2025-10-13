@@ -34,46 +34,110 @@ const EquipmentCard = ({ item, index }: { item: typeof equipment[0], index: numb
       transition={{ delay: index * 0.1 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="relative"
+      className="relative group"
     >
       <motion.div
-        layout
         animate={{
-          scale: isHovered ? 1.05 : 1,
+          y: isHovered ? -8 : 0,
         }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
-        <Card className="overflow-hidden h-full hover:shadow-2xl transition-shadow">
+        <Card className="overflow-hidden h-full relative border-2 border-border hover:border-primary/50 transition-all duration-300">
+          {/* Glow effect on hover */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            animate={{
+              scale: isHovered ? 1 : 0.95,
+            }}
+          />
+          
           <AnimatePresence>
             {isHovered && (
               <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 200 }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, height: 0, scale: 0.95 }}
+                animate={{ opacity: 1, height: 240, scale: 1 }}
+                exit={{ opacity: 0, height: 0, scale: 0.95 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 className="relative overflow-hidden"
               >
-                <img 
+                <motion.img 
                   src={item.image} 
                   alt={item.name}
-                  className="w-full h-[200px] object-cover"
+                  className="w-full h-[240px] object-cover"
+                  initial={{ scale: 1.2 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.6 }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+                
+                {/* Animated corner accent */}
+                <motion.div
+                  className="absolute top-0 right-0 w-24 h-24 bg-primary/20"
+                  style={{ clipPath: "polygon(100% 0, 100% 100%, 0 0)" }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.2 }}
+                />
               </motion.div>
             )}
           </AnimatePresence>
           
-          <div className="p-6">
+          <div className="p-6 relative z-10">
             <div className="flex items-start justify-between mb-4">
-              <h3 className="text-2xl font-bold">{item.name}</h3>
-              <div className="bg-primary/10 text-primary px-4 py-2 rounded-full font-bold text-lg">
-                {item.quantity}
-              </div>
+              <motion.h3 
+                className="text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text"
+                animate={{
+                  x: isHovered ? 4 : 0,
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                {item.name}
+              </motion.h3>
+              
+              <motion.div 
+                className="relative"
+                animate={{
+                  rotate: isHovered ? 360 : 0,
+                  scale: isHovered ? 1.1 : 1,
+                }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative bg-gradient-to-br from-primary to-primary/80 text-primary-foreground px-4 py-2 rounded-full font-bold text-lg shadow-lg">
+                  {item.quantity}
+                </div>
+              </motion.div>
             </div>
-            <p className="text-muted-foreground">{item.description}</p>
+            
+            <motion.p 
+              className="text-muted-foreground leading-relaxed"
+              animate={{
+                opacity: isHovered ? 1 : 0.8,
+              }}
+            >
+              {item.description}
+            </motion.p>
+
+            {/* Bottom accent line */}
+            <motion.div
+              className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-primary via-primary/80 to-transparent"
+              initial={{ width: 0 }}
+              animate={{ width: isHovered ? "100%" : "0%" }}
+              transition={{ duration: 0.4 }}
+            />
           </div>
         </Card>
       </motion.div>
+      
+      {/* Shadow effect */}
+      <motion.div
+        className="absolute inset-0 -z-10 bg-primary/5 blur-2xl rounded-lg"
+        animate={{
+          opacity: isHovered ? 0.6 : 0,
+          scale: isHovered ? 1.05 : 0.95,
+        }}
+        transition={{ duration: 0.4 }}
+      />
     </motion.div>
   );
 };
