@@ -1,18 +1,82 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Banner } from "@/components/Banner";
 import { Card } from "@/components/ui/card";
+import { useState } from "react";
 import heroEquipment from "@/assets/hero-equipment.jpg";
+import ripperDozerImg from "@/assets/equipment-ripper-dozer.jpg";
+import jcbImg from "@/assets/equipment-jcb.jpg";
+import excavatorImg from "@/assets/equipment-excavator.jpg";
+import dozerImg from "@/assets/equipment-dozer.jpg";
+import motorGraderImg from "@/assets/equipment-motor-grader.jpg";
+import rollerImg from "@/assets/equipment-roller.jpg";
+import dumperImg from "@/assets/equipment-dumper.jpg";
+import lightVehiclesImg from "@/assets/equipment-light-vehicles.jpg";
 
 const equipment = [
-  { name: "Ripper Dozer", quantity: 3, description: "Heavy-duty dozers for ripping and land clearing" },
-  { name: "JCB", quantity: 2, description: "Versatile backhoe loaders for excavation and loading" },
-  { name: "Excavator", quantity: 3, description: "Powerful excavators for deep excavation work" },
-  { name: "Dozer", quantity: 3, description: "Bulldozers for pushing and leveling operations" },
-  { name: "Motor Grader", quantity: 2, description: "Precision grading equipment for road construction" },
-  { name: "Vibratory Power Roller", quantity: 2, description: "Compaction rollers for soil and asphalt" },
-  { name: "Dumpers / Tippers", quantity: 5, description: "Heavy-duty trucks for material transportation" },
-  { name: "Light Vehicles", quantity: 3, description: "Support vehicles for site operations" },
+  { name: "Ripper Dozer", quantity: 3, description: "Heavy-duty dozers for ripping and land clearing", image: ripperDozerImg },
+  { name: "JCB", quantity: 2, description: "Versatile backhoe loaders for excavation and loading", image: jcbImg },
+  { name: "Excavator", quantity: 3, description: "Powerful excavators for deep excavation work", image: excavatorImg },
+  { name: "Dozer", quantity: 3, description: "Bulldozers for pushing and leveling operations", image: dozerImg },
+  { name: "Motor Grader", quantity: 2, description: "Precision grading equipment for road construction", image: motorGraderImg },
+  { name: "Vibratory Power Roller", quantity: 2, description: "Compaction rollers for soil and asphalt", image: rollerImg },
+  { name: "Dumpers / Tippers", quantity: 5, description: "Heavy-duty trucks for material transportation", image: dumperImg },
+  { name: "Light Vehicles", quantity: 3, description: "Support vehicles for site operations", image: lightVehiclesImg },
 ];
+
+const EquipmentCard = ({ item, index }: { item: typeof equipment[0], index: number }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="relative"
+    >
+      <motion.div
+        layout
+        animate={{
+          scale: isHovered ? 1.05 : 1,
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <Card className="overflow-hidden h-full hover:shadow-2xl transition-shadow">
+          <AnimatePresence>
+            {isHovered && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 200 }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="relative overflow-hidden"
+              >
+                <img 
+                  src={item.image} 
+                  alt={item.name}
+                  className="w-full h-[200px] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          
+          <div className="p-6">
+            <div className="flex items-start justify-between mb-4">
+              <h3 className="text-2xl font-bold">{item.name}</h3>
+              <div className="bg-primary/10 text-primary px-4 py-2 rounded-full font-bold text-lg">
+                {item.quantity}
+              </div>
+            </div>
+            <p className="text-muted-foreground">{item.description}</p>
+          </div>
+        </Card>
+      </motion.div>
+    </motion.div>
+  );
+};
 
 const Equipment = () => {
   return (
@@ -39,24 +103,7 @@ const Equipment = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {equipment.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <Card className="p-6 h-full hover:shadow-lg transition-shadow">
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-2xl font-bold">{item.name}</h3>
-                    <div className="bg-primary/10 text-primary px-4 py-2 rounded-full font-bold text-lg">
-                      {item.quantity}
-                    </div>
-                  </div>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </Card>
-              </motion.div>
+              <EquipmentCard key={index} item={item} index={index} />
             ))}
           </div>
         </div>
