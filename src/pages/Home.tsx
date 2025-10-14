@@ -80,13 +80,36 @@ const testimonials = [
 const Home = () => {
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section with Video */}
       <section className="relative h-screen overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImage})` }}
+        {/* Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+          <source src="https://cdn.pixabay.com/video/2020/08/13/47216-449787938_large.mp4" type="video/mp4" />
+        </video>
+
+        {/* Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
+        
+        {/* Animated Particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-2 h-2 bg-primary/30 rounded-full animate-particle"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 15}s`,
+                animationDuration: `${15 + Math.random() * 10}s`,
+              }}
+            />
+          ))}
         </div>
 
         <div className="relative h-full container mx-auto px-4 flex flex-col justify-center">
@@ -96,51 +119,82 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
-            <h1 className="text-6xl md:text-7xl font-bold text-white mb-6">
-              Mahalaxmi <span className="gradient-text">Infrasolution</span>
-            </h1>
-            <p className="text-2xl text-white/90 mb-8">
+            <motion.h1 
+              className="text-6xl md:text-8xl font-bold text-white mb-6"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              Mahalaxmi <span className="gradient-text text-glow">Infrasolution</span>
+            </motion.h1>
+            <motion.p 
+              className="text-2xl md:text-3xl text-white/90 mb-8 font-light"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.4 }}
+            >
               Developing Infra for a Better Tomorrow
-            </p>
+            </motion.p>
 
-            {/* Project Marquee */}
-            <div className="bg-black/50 backdrop-blur-sm rounded-lg p-4 mb-8">
+            {/* Project Marquee with Glass Effect */}
+            <motion.div 
+              className="glass-card rounded-2xl p-4 mb-8 border border-primary/20"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
               <Marquee speed={40}>
                 {projects.map((project, index) => (
-                  <span key={index} className="text-primary font-semibold whitespace-nowrap">
+                  <span key={index} className="text-primary font-semibold whitespace-nowrap text-lg">
                     {project}
                   </span>
                 ))}
               </Marquee>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-wrap gap-4">
+            <motion.div 
+              className="flex flex-wrap gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
               <Link to="/projects">
-                <Button size="lg" className="animate-pulse-glow">
+                <Button size="lg" className="animate-pulse-glow text-lg px-8 py-6 hover:scale-105 transition-transform">
                   View Our Projects <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/contact">
-                <Button size="lg" variant="secondary">
+                <Button size="lg" variant="secondary" className="text-lg px-8 py-6 hover:scale-105 transition-transform">
                   Get a Quote
                 </Button>
               </Link>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* Achievements Section */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5" />
+        <div className="absolute inset-0" style={{ backgroundImage: 'var(--gradient-mesh)' }} />
+        
+        <div className="container mx-auto px-4 relative">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-bold text-center mb-12"
+            className="text-5xl font-bold text-center mb-4"
           >
-            Our Achievements
+            Our <span className="gradient-text">Achievements</span>
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center text-muted-foreground text-lg mb-16"
+          >
+            Numbers that speak for our excellence
+          </motion.p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -151,14 +205,17 @@ const Home = () => {
             ].map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.1, type: "spring" }}
                 className="text-center"
               >
-                <AnimatedCounter end={stat.end} suffix={stat.suffix} />
-                <p className="text-lg text-muted-foreground mt-2">{stat.label}</p>
+                <div className="glass-card rounded-3xl p-8 hover:scale-105 transition-all duration-300 border-2 border-primary/20">
+                  <AnimatedCounter end={stat.end} suffix={stat.suffix} />
+                  <p className="text-lg font-semibold mt-3">{stat.label}</p>
+                  <div className="mt-4 h-1 w-16 mx-auto bg-gradient-to-r from-primary via-accent to-primary rounded-full" />
+                </div>
               </motion.div>
             ))}
           </div>
@@ -166,16 +223,22 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <motion.h2
+      <section className="py-20 relative overflow-hidden">
+        {/* Background Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background pointer-events-none" />
+        
+        <div className="container mx-auto px-4 relative">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-bold text-center mb-12"
+            className="text-center mb-16"
           >
-            Our Services
-          </motion.h2>
+            <h2 className="text-5xl font-bold mb-4">
+              Our <span className="gradient-text">Services</span>
+            </h2>
+            <p className="text-xl text-muted-foreground">Excellence in every project we undertake</p>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
@@ -187,48 +250,60 @@ const Home = () => {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -10 }}
               >
-                <Card className="overflow-hidden h-full group cursor-pointer">
+                <Card className="overflow-hidden h-full group cursor-pointer premium-card border-2">
                   <div className="relative h-64 overflow-hidden">
+                    <div className="absolute inset-0 bg-primary/5 shimmer" />
                     <img
                       src={service.image}
                       alt={service.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125 group-hover:rotate-2"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                    <div className="absolute bottom-4 left-4">
-                      <service.icon className="h-12 w-12 text-primary mb-2" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                    <div className="absolute bottom-4 left-4 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-2">
+                      <service.icon className="h-14 w-14 text-primary drop-shadow-lg animate-float" />
+                    </div>
+                    <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary-foreground">
+                      Premium
                     </div>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-2xl font-bold mb-2">{service.title}</h3>
-                    <p className="text-muted-foreground">{service.description}</p>
+                  <div className="p-6 bg-gradient-to-br from-card to-muted/20">
+                    <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{service.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{service.description}</p>
                   </div>
                 </Card>
               </motion.div>
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <motion.div 
+            className="text-center mt-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
             <Link to="/services">
-              <Button size="lg">
+              <Button size="lg" className="text-lg px-8 py-6 hover:scale-105 transition-transform">
                 View All Services <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-muted">
+      <section className="py-20 bg-muted/50 backdrop-blur-sm">
         <div className="container mx-auto px-4">
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-bold text-center mb-12"
+            className="text-center mb-16"
           >
-            What Our Clients Say
-          </motion.h2>
+            <h2 className="text-5xl font-bold mb-4">
+              What Our <span className="gradient-text">Clients Say</span>
+            </h2>
+            <p className="text-xl text-muted-foreground">Real feedback from real partnerships</p>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
@@ -237,18 +312,29 @@ const Home = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.1, type: "spring" }}
               >
-                <Card className="p-6 h-full">
-                  <div className="flex mb-4">
+                <Card className="p-8 h-full premium-card relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-transparent rounded-bl-full" />
+                  <div className="flex mb-6 relative z-10">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <span key={i} className="text-primary text-2xl">★</span>
+                      <motion.span 
+                        key={i} 
+                        className="text-primary text-2xl"
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.1 + i * 0.1 }}
+                      >
+                        ★
+                      </motion.span>
                     ))}
                   </div>
-                  <p className="text-muted-foreground mb-6 italic">"{testimonial.text}"</p>
-                  <div>
-                    <p className="font-bold">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.company}</p>
+                  <p className="text-foreground/80 mb-6 italic text-lg leading-relaxed relative z-10">
+                    "{testimonial.text}"
+                  </p>
+                  <div className="relative z-10">
+                    <p className="font-bold text-lg">{testimonial.name}</p>
+                    <p className="text-sm text-primary font-medium">{testimonial.company}</p>
                   </div>
                 </Card>
               </motion.div>
@@ -258,24 +344,29 @@ const Home = () => {
       </section>
 
       {/* Clients Carousel */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <motion.h2
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
+        
+        <div className="container mx-auto px-4 relative">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-bold text-center mb-12"
+            className="text-center mb-16"
           >
-            Our Trusted Partners
-          </motion.h2>
+            <h2 className="text-5xl font-bold mb-4">
+              Our Trusted <span className="gradient-text">Partners</span>
+            </h2>
+            <p className="text-xl text-muted-foreground">Industry leaders who trust us</p>
+          </motion.div>
 
           <Marquee speed={25}>
             {clients.map((client, index) => (
               <div
                 key={index}
-                className="bg-card rounded-lg px-8 py-6 shadow-md min-w-[200px] text-center"
+                className="glass-card rounded-2xl px-10 py-8 min-w-[250px] text-center hover:scale-110 transition-all duration-300 border-2 border-primary/20"
               >
-                <p className="text-xl font-bold">{client}</p>
+                <p className="text-2xl font-bold gradient-text">{client}</p>
               </div>
             ))}
           </Marquee>
