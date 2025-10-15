@@ -12,6 +12,13 @@ import earthworkService from "@/assets/service-earthwork.jpg";
 import materialService from "@/assets/service-material.jpg";
 import miningService from "@/assets/service-mining.jpg";
 import powerplantService from "@/assets/service-powerplant.jpg";
+import clientLT from "@/assets/client-lt.jpg";
+import clientAppco from "@/assets/client-appco.jpg";
+import clientNTPC from "@/assets/client-ntpc.jpg";
+import clientJSW from "@/assets/client-jsw.jpg";
+import clientBalajee from "@/assets/client-balajee.jpg";
+import clientNCL from "@/assets/client-ncl.jpg";
+import clientMahanandi from "@/assets/client-mahanandi.jpg";
 
 const projects = [
   "OB Removal Work (MCL)",
@@ -55,7 +62,16 @@ const services = [
   },
 ];
 
-const clients = ["L&T", "Appco", "NTPC", "JSW", "Balajee Construction", "NCL", "NTPC Corba", "Mahanandi Coal Mines"];
+const clients = [
+  { name: "L&T", image: clientLT },
+  { name: "Appco", image: clientAppco },
+  { name: "NTPC", image: clientNTPC },
+  { name: "JSW", image: clientJSW },
+  { name: "Balajee Construction", image: clientBalajee },
+  { name: "NCL", image: clientNCL },
+  { name: "NTPC Corba", image: clientNTPC },
+  { name: "Mahanandi Coal Mines", image: clientMahanandi },
+];
 
 const testimonials = [
   {
@@ -368,6 +384,7 @@ const Home = () => {
       {/* Clients Carousel */}
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
+        <div className="absolute inset-0" style={{ backgroundImage: 'var(--gradient-mesh)' }} />
         
         <div className="container mx-auto px-4 relative">
           <motion.div
@@ -382,14 +399,44 @@ const Home = () => {
             <p className="text-xl text-muted-foreground">Industry leaders who trust us</p>
           </motion.div>
 
-          <Marquee speed={25}>
+          <Marquee speed={30}>
             {clients.map((client, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="glass-card rounded-2xl px-10 py-8 min-w-[250px] text-center hover:scale-110 transition-all duration-300 border-2 border-primary/20"
+                className="group relative"
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <p className="text-2xl font-bold gradient-text">{client}</p>
-              </div>
+                {/* Glow Effect */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Card */}
+                <div className="relative glass-card rounded-3xl p-8 min-w-[280px] border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 overflow-hidden">
+                  {/* Background Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  {/* Logo Container */}
+                  <div className="relative flex flex-col items-center gap-4">
+                    <div className="relative w-32 h-32 rounded-2xl overflow-hidden bg-gradient-to-br from-background to-muted/50 p-4 group-hover:scale-110 transition-transform duration-300">
+                      <img 
+                        src={client.image} 
+                        alt={client.name}
+                        className="w-full h-full object-contain"
+                      />
+                      {/* Image Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                    
+                    {/* Client Name */}
+                    <p className="text-xl font-bold gradient-text group-hover:scale-105 transition-transform duration-300">
+                      {client.name}
+                    </p>
+                  </div>
+
+                  {/* Decorative Corner */}
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-primary/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              </motion.div>
             ))}
           </Marquee>
         </div>
