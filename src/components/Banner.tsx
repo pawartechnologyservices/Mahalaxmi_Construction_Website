@@ -8,7 +8,7 @@ interface BannerProps {
 
 export const Banner = ({ image, title, subtitle }: BannerProps) => {
   return (
-    <div className="relative h-[400px] overflow-hidden">
+    <div className="relative h-[500px] overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center"

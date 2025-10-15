@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Marquee } from "@/components/Marquee";
-import heroImage from "@/assets/hero-home.jpg";
+import heroVideo from "@/assets/video/hero_video.mp4";
+import heroFallback from "@/assets/hero-home.jpg"; // Fallback image
 import roadService from "@/assets/service-road.jpg";
 import earthworkService from "@/assets/service-earthwork.jpg";
 import materialService from "@/assets/service-material.jpg";
@@ -82,20 +83,41 @@ const Home = () => {
     <div className="min-h-screen">
       {/* Hero Section with Video */}
       <section className="relative h-screen overflow-hidden">
-        {/* Video Background */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="https://cdn.pixabay.com/video/2020/08/13/47216-449787938_large.mp4" type="video/mp4" />
-        </video>
+        {/* Video Background with Fallback */}
+        <div className="absolute inset-0 w-full h-full">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="w-full h-full object-cover"
+            poster={heroFallback}
+            onError={(e) => {
+              // Fallback if video fails to load
+              const video = e.target as HTMLVideoElement;
+              video.style.display = 'none';
+              const fallback = document.getElementById('hero-fallback');
+              if (fallback) fallback.style.display = 'block';
+            }}
+          >
+            <source src={heroVideo} type="video/mp4" />
+            {/* Add additional formats for better browser support */}
+            <source src={heroVideo.replace('.mp4', '.webm')} type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+          
+          {/* Fallback Image */}
+          <div 
+            id="hero-fallback"
+            className="absolute inset-0 w-full h-full bg-cover bg-center hidden"
+            style={{ backgroundImage: `url(${heroFallback})` }}
+          />
+        </div>
 
-        {/* Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
+        {/* Enhanced Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60" />
         
         {/* Animated Particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -138,14 +160,14 @@ const Home = () => {
 
             {/* Project Marquee with Glass Effect */}
             <motion.div 
-              className="glass-card rounded-2xl p-4 mb-8 border border-primary/20"
+              className=" rounded-2xl p-4 mb-8 border border-primary/20"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <Marquee speed={40}>
                 {projects.map((project, index) => (
-                  <span key={index} className="text-primary font-semibold whitespace-nowrap text-lg">
+                  <span key={index} className="text-primary font-semibold whitespace-nowrap text-lg ">
                     {project}
                   </span>
                 ))}
@@ -173,6 +195,7 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Rest of your sections remain the same */}
       {/* Achievements Section */}
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5" />
@@ -224,7 +247,6 @@ const Home = () => {
 
       {/* Services Section */}
       <section className="py-20 relative overflow-hidden">
-        {/* Background Gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background pointer-events-none" />
         
         <div className="container mx-auto px-4 relative">
