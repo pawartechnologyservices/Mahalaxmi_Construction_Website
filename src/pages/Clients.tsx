@@ -3,67 +3,86 @@ import { Banner } from "@/components/Banner";
 import { Card } from "@/components/ui/card";
 import { Marquee } from "@/components/Marquee";
 import heroHome from "@/assets/hero-home.jpg";
+import clientLT from "@/assets/client-lt.jpg";
+import clientAppco from "@/assets/client-appco.jpg";
+import clientNTPC from "@/assets/client-ntpc.jpg";
+import clientJSW from "@/assets/client-jsw.jpg";
+import clientBalajee from "@/assets/client-balajee.jpg";
+import clientNCL from "@/assets/client-ncl.jpg";
+import clientMahanandi from "@/assets/client-mahanandi.jpg";
 
 const clients = [
   {
     name: "Larsen & Toubro (L&T)",
     category: "Engineering & Construction",
     projects: "Multiple infrastructure projects",
+    image: clientLT,
   },
   {
     name: "Appco Infrastructure Pvt Ltd",
     category: "Highway Development",
     projects: "Samruddhi Mahamarg Project",
+    image: clientAppco,
   },
   {
     name: "NTPC Ramagundam",
     category: "Power Generation",
     projects: "Plant infrastructure development",
+    image: clientNTPC,
   },
   {
     name: "Mahanandi Coal Mines (MCL)",
     category: "Coal Mining",
     projects: "OB Removal & Earth Work",
+    image: clientMahanandi,
   },
   {
     name: "Domngamova Mines",
     category: "Mining Operations",
     projects: "Mining infrastructure",
+    image: clientMahanandi,
   },
   {
     name: "Balajee Construction",
     category: "Construction",
     projects: "Dozing & Earth Work",
+    image: clientBalajee,
   },
   {
     name: "Northern Coalfields Ltd (NCL)",
     category: "Coal Mining",
     projects: "Grading & Compaction Work",
+    image: clientNCL,
   },
   {
     name: "NTPC Corba",
     category: "Power Generation",
     projects: "Civil works & infrastructure",
+    image: clientNTPC,
   },
   {
     name: "JSW Panvel",
     category: "Steel Manufacturing",
     projects: "Industrial infrastructure",
+    image: clientJSW,
   },
   {
     name: "Triveni Mining",
     category: "Mining Operations",
     projects: "Mining support services",
+    image: clientMahanandi,
   },
   {
     name: "Upadhyey Construction",
     category: "Construction",
     projects: "Infrastructure projects",
+    image: clientBalajee,
   },
   {
     name: "Bhilai Steel Plant",
     category: "Steel Manufacturing",
     projects: "Coal handling plant",
+    image: clientJSW,
   },
 ];
 
@@ -91,9 +110,18 @@ const Clients = () => {
             {clients.map((client, index) => (
               <Card
                 key={index}
-                className="min-w-[300px] p-6 shadow-lg hover:shadow-xl transition-shadow"
+                className="min-w-[350px] glass-card border-2 border-primary/20 p-8 hover:scale-105 hover:shadow-glow-lg transition-all duration-300 group"
               >
-                <h3 className="text-xl font-bold text-center">{client.name}</h3>
+                <div className="relative overflow-hidden rounded-2xl mb-6 bg-gradient-to-br from-background to-muted">
+                  <img 
+                    src={client.image} 
+                    alt={client.name}
+                    className="w-full h-40 object-contain p-6 group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <h3 className="text-xl font-bold text-center group-hover:text-primary transition-colors">{client.name}</h3>
+                <div className="h-1 w-0 bg-gradient-primary mx-auto mt-4 group-hover:w-full transition-all duration-500 rounded-full" />
               </Card>
             ))}
           </Marquee>
@@ -120,12 +148,21 @@ const Clients = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -8, scale: 1.02 }}
               >
-                <Card className="p-6 h-full hover:shadow-lg transition-shadow">
-                  <h3 className="text-xl font-bold mb-2">{client.name}</h3>
+                <Card className="premium-card border-2 border-primary/20 p-6 h-full group overflow-hidden">
+                  <div className="relative overflow-hidden rounded-xl mb-4 bg-gradient-to-br from-background to-muted">
+                    <img 
+                      src={client.image} 
+                      alt={client.name}
+                      className="w-full h-32 object-contain p-4 group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2 right-2 w-3 h-3 bg-primary rounded-full animate-pulse-glow" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{client.name}</h3>
                   <p className="text-sm text-primary font-semibold mb-2">{client.category}</p>
                   <p className="text-sm text-muted-foreground">{client.projects}</p>
+                  <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                 </Card>
               </motion.div>
             ))}
