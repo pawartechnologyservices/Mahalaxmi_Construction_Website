@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Marquee } from "@/components/Marquee";
+import { useEffect } from "react";
 import heroVideo from "@/assets/video/hero_video.mp4";
 import heroFallback from "@/assets/hero-home.jpg"; // Fallback image
 import roadService from "@/assets/service-road.jpg";
@@ -200,6 +201,11 @@ const testimonials = [
 ];
 
 const Home = () => {
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section with Video */}
@@ -539,7 +545,7 @@ const Home = () => {
                     </div>
                     
                     {/* Client Name */}
-                    <p className="text-xl font-bold gradient-text group-hover:scale-105 transition-transform duration-300">
+                    <p className="text-[18px] font-bold gradient-text group-hover:scale-105 transition-transform duration-300">
                       {client.name}
                     </p>
                   </div>

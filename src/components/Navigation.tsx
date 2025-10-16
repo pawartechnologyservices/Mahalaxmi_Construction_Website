@@ -52,7 +52,7 @@ export const Navigation = () => {
           <div className="hidden lg:flex items-center space-x-4">
             <a href="tel:+919970894756" className="flex items-center space-x-2 text-secondary-foreground hover:text-primary transition-colors">
               <Phone className="h-4 w-4" />
-              <span className="text-sm">+91 9970894756</span>
+              <span className="text-sm">+91 7391074444</span>
             </a>
           </div>
 

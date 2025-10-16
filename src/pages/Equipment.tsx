@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Banner } from "@/components/Banner";
 import { Card } from "@/components/ui/card";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import heroEquipment from "@/assets/hero-equipment.jpg";
 import ripperDozerImg from "@/assets/equipment-ripper-dozer.jpg";
 import jcbImg from "@/assets/equipment-jcb.jpg";
@@ -143,6 +143,11 @@ const EquipmentCard = ({ item, index }: { item: typeof equipment[0], index: numb
 };
 
 const Equipment = () => {
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen pt-20">
       <Banner

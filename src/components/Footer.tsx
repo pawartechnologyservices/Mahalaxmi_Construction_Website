@@ -52,13 +52,13 @@ export const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                 <a href="tel:+919970894756" className="text-sm opacity-80 hover:text-primary transition-colors">
-                  +91 9970894756
+                  +91 7391074444
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                 <a href="mailto:nikb7535@gmail.com" className="text-sm opacity-80 hover:text-primary transition-colors">
-                  nikb7535@gmail.com
+                  Mahalaxmiinfrasolutions7@gmail.com
                 </a>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { CheckCircle, Target, Eye, Award } from "lucide-react";
 import { Banner } from "@/components/Banner";
 import { Card } from "@/components/ui/card";
 import heroAbout from "@/assets/hero-about.jpg";
+import React from "react";
 
 const coreBeliefs = [
   "Latest Equipment & Machinery",
@@ -37,6 +38,11 @@ const qualityProcess = [
 ];
 
 const About = () => {
+  // Scroll to top on component mount
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen pt-20">
       <Banner

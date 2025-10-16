@@ -8,6 +8,7 @@ import earthworkService from "@/assets/service-earthwork.jpg";
 import materialService from "@/assets/service-material.jpg";
 import miningService from "@/assets/service-mining.jpg";
 import powerplantService from "@/assets/service-powerplant.jpg";
+import React from "react";
 
 const services = [
   {
@@ -83,6 +84,11 @@ const services = [
 ];
 
 const Services = () => {
+  // Scroll to top on component mount
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen pt-20">
       <Banner

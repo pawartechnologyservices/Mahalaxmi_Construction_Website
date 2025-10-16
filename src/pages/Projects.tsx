@@ -3,6 +3,7 @@ import { Banner } from "@/components/Banner";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import heroProjects from "@/assets/hero-projects.jpg";
+import { useEffect } from "react";
 
 const completedProjects = [
   {
@@ -56,6 +57,11 @@ const currentProject = {
 };
 
 const Projects = () => {
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen pt-20">
       <Banner
@@ -198,7 +204,7 @@ const Projects = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="p-8 text-center">
+                <Card className="p-8 text-center h-44">
                   <p className="text-5xl font-bold gradient-text mb-2">{stat.number}</p>
                   <p className="text-lg text-muted-foreground">{stat.label}</p>
                 </Card>

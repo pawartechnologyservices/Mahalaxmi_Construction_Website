@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Banner } from "@/components/Banner";
 import { Card } from "@/components/ui/card";
@@ -17,6 +17,11 @@ const Contact = () => {
     phone: "",
     message: "",
   });
+
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
