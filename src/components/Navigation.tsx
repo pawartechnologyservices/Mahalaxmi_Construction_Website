@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import mclogo from "@/assets/mahalogo.png";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -10,6 +11,7 @@ const navLinks = [
   { name: "Services", path: "/services" },
   { name: "Equipment", path: "/equipment" },
   { name: "Projects", path: "/projects" },
+  { name: "Team", path: "/team" },
   { name: "Contact", path: "/contact" },
 ];
 
@@ -18,7 +20,7 @@ export const Navigation = () => {
   const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-sm shadow-lg">
+    <nav className="fixed py-3 top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-sm shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -27,12 +29,12 @@ export const Navigation = () => {
               whileHover={{ scale: 1.05 }}
               className="text-2xl font-bold gradient-text"
             >
-              🏗️ Mahalaxmi Infrasolution
+              {/* 🏗️ Mahalaxmi Infrasolution */} <img src={mclogo} alt="" className="h-32 w-full" />
             </motion.div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center space-x-1 text-sm">
             {navLinks.map((link) => (
               <Link
                 key={link.path}

@@ -209,7 +209,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Video */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative h-[800px] overflow-hidden">
         {/* Video Background with Fallback */}
         <div className="absolute inset-0 w-full h-full">
           <video
@@ -243,8 +243,8 @@ const Home = () => {
         </div>
 
         {/* Enhanced Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/20 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/20" />
         
         {/* Animated Particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -261,7 +261,7 @@ const Home = () => {
           ))}
         </div>
 
-        <div className="relative h-full container mx-auto px-4 flex flex-col justify-center">
+        <div className="relative h-full container mt-36 flex flex-col justify-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -269,37 +269,37 @@ const Home = () => {
             className="max-w-3xl"
           >
             <motion.h1 
-              className="text-6xl md:text-8xl font-bold text-white mb-6"
+              className="text-[50px] w-[1000px]  font-bold text-white mb-6"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2 }}
             >
-              Mahalaxmi <span className="gradient-text text-glow">Infrasolution</span>
+              Where Innovation Meets Construction Building the Future, Today.<span className="gradient-text text-glow"></span>
             </motion.h1>
             <motion.p 
-              className="text-2xl md:text-3xl text-white/90 mb-8 font-light"
+              className="text-[17px] text-white/90 mb-8 font-light"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4 }}
             >
-              Developing Infra for a Better Tomorrow
+              At Mahalaxmi Infrasolution, we take pride in shaping the nation’s infrastructure from mining and material supply to roads, earthworks, and power plant projects.
             </motion.p>
 
             {/* Project Marquee with Glass Effect */}
-            <motion.div 
+            {/* <motion.div 
               className=" rounded-2xl p-4 mb-8 border border-primary/20"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <Marquee speed={40}>
+              <Marquee speed={10}>
                 {projects.map((project, index) => (
                   <span key={index} className="text-primary font-semibold whitespace-nowrap text-lg ">
                     {project}
                   </span>
                 ))}
               </Marquee>
-            </motion.div>
+            </motion.div> */}
 
             <motion.div 
               className="flex flex-wrap gap-4"
@@ -308,7 +308,7 @@ const Home = () => {
               transition={{ duration: 0.8, delay: 0.8 }}
             >
               <Link to="/projects">
-                <Button size="lg" className="animate-pulse-glow text-lg px-8 py-6 hover:scale-105 transition-transform">
+                <Button size="lg" className=" text-lg px-8 py-6 hover:scale-105 transition-transform">
                   View Our Projects <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -516,7 +516,7 @@ const Home = () => {
             <p className="text-xl text-muted-foreground">Industry leaders who trust us</p>
           </motion.div>
 
-          <Marquee speed={30}>
+          <Marquee speed={5}>
             {clients.map((client, index) => (
               <motion.div
                 key={index}

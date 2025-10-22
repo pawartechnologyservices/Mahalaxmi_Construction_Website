@@ -5,7 +5,7 @@ interface MarqueeProps {
   speed?: number;
 }
 
-export const Marquee = ({ children, speed = 30 }: MarqueeProps) => {
+export const Marquee = ({ children, speed = 5 }: MarqueeProps) => {
   return (
     <div className="relative overflow-hidden w-full p-7">
       <div 
