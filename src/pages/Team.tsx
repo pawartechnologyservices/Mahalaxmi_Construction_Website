@@ -59,7 +59,7 @@ export const Team = () => {
   return (
     <section className="pt-20 md:pt-28 pb-16 md:pb-20 min-h-screen px-4 sm:px-6">
       {/* Page Heading */}
-      <div className="text-center mb-8 md:mb-12">
+      <div className="text-center mt-10 mb-8 md:mb-12">
         <motion.h2
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}

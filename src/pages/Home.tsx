@@ -282,24 +282,8 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4 }}
             >
-              At Mahalaxmi Infrasolution, we take pride in shaping the nation’s infrastructure from mining and material supply to roads, earthworks, and power plant projects.
+              At Mahalaxmi Infrasolution, we take pride in shaping the nation's infrastructure from mining and material supply to roads, earthworks, and power plant projects.
             </motion.p>
-
-            {/* Project Marquee with Glass Effect */}
-            {/* <motion.div 
-              className=" rounded-2xl p-4 mb-8 border border-primary/20"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <Marquee speed={10}>
-                {projects.map((project, index) => (
-                  <span key={index} className="text-primary font-semibold whitespace-nowrap text-lg ">
-                    {project}
-                  </span>
-                ))}
-              </Marquee>
-            </motion.div> */}
 
             <motion.div 
               className="flex flex-wrap gap-4"
@@ -322,7 +306,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Rest of your sections remain the same */}
       {/* Achievements Section */}
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5" />
@@ -389,8 +372,9 @@ const Home = () => {
             <p className="text-xl text-muted-foreground">Excellence in every project we undertake</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
+          {/* First Row - Road Construction, Material Supply, Earth Work */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {services.slice(0, 3).map((service, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
@@ -422,6 +406,44 @@ const Home = () => {
                 </Card>
               </motion.div>
             ))}
+          </div>
+
+          {/* Second Row - Centered Mining and Power Plant Projects */}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-64 max-w-2xl">
+              {services.slice(3, 5).map((service, index) => (
+                <motion.div
+                  key={index + 3}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (index + 3) * 0.1 }}
+                  whileHover={{ y: -10 }}
+                >
+                  <Card className="overflow-hidden -ml-24 w-[420px] h-full group cursor-pointer premium-card border-2">
+                    <div className="relative h-64 overflow-hidden">
+                      <div className="absolute inset-0 bg-primary/5 shimmer" />
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125 group-hover:rotate-2"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                      <div className="absolute bottom-4 left-4 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-2">
+                        <service.icon className="h-14 w-14 text-primary drop-shadow-lg animate-float" />
+                      </div>
+                      <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary-foreground">
+                        Premium
+                      </div>
+                    </div>
+                    <div className="p-6 bg-gradient-to-br from-card to-muted/20">
+                      <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{service.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
           <motion.div 
